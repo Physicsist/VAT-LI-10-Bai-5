@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Vật Lí 10 - Chủ đề 5: Tốc Độ và Vận Tốc</title>
+    <!-- Cấu hình MathJax để hiển thị công thức Toán/Lí và Vector -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0ea5e9;
+            --success: #16a34a;
+            --success-bg: #dcfce7;
+            --danger: #dc2626;
+            --danger-bg: #fee2e2;
+            --warning: #d97706;
+            --warning-bg: #fef3c7;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 1.75rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Onboarding Form */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.2s;
+            background: #f8fafc;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #15803d;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: #eff6ff;
+        }
+
+        /* Student Info Bar */
+        .student-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.75rem;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 0.85rem 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 1.25rem;
+            font-size: 0.9rem;
+        }
+
+        .student-bar span {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        /* Level Tabs */
+        .level-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .level-tab {
+            padding: 0.9rem 0.5rem;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            background: var(--card);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .level-tab.active {
+            border-color: var(--primary);
+            background: #eff6ff;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .level-tab.locked {
+            opacity: 0.75;
+            background: #f1f5f9;
+        }
+
+        .level-tab .lv-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .level-tab .lv-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+            display: block;
+        }
+
+        /* Progress & Status Box */
+        .status-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: var(--warning-bg);
+            border-left: 5px solid var(--warning);
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-banner.unlocked {
+            background: var(--success-bg);
+            border-left-color: var(--success);
+        }
+
+        .badge-streak {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: white;
+            padding: 0.4rem 0.85rem;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Question Card */
+        .question-box {
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 1.4rem;
+            margin-bottom: 1.25rem;
+            background: white;
+            transition: border-color 0.2s;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .q-number {
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+        }
+
+        .q-trap-badge {
+            font-size: 0.75rem;
+            color: #9333ea;
+            background: #f3e8ff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .q-text {
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #0f172a;
+        }
+
+        .svg-wrapper {
+            margin: 1rem auto;
+            text-align: center;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 0.75rem;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        .options-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.65rem;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            background: #f8fafc;
+            cursor: pointer;
+            font-size: 0.98rem;
+            transition: all 0.15s;
+            color: var(--text);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+        }
+
+        .opt-prefix {
+            font-weight: 700;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #334155;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.85rem;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        /* Instant Feedback States */
+        .option-btn.correct {
+            background: var(--success-bg) !important;
+            border-color: var(--success) !important;
+            color: #065f46 !important;
+            font-weight: 600;
+        }
+
+        .option-btn.correct .opt-prefix {
+            background: var(--success);
+            color: white;
+        }
+
+        .option-btn.wrong {
+            background: var(--danger-bg) !important;
+            border-color: var(--danger) !important;
+            color: #991b1b !important;
+        }
+
+        .option-btn.wrong .opt-prefix {
+            background: var(--danger);
+            color: white;
+        }
+
+        .explanation-box {
+            margin-top: 1rem;
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            background: #f1f5f9;
+            border-left: 4px solid var(--primary);
+            animation: fadeIn 0.25s ease-in-out;
+        }
+
+        .explanation-box.is-correct {
+            background: #f0fdf4;
+            border-left-color: var(--success);
+        }
+
+        .explanation-box.is-wrong {
+            background: #fef2f2;
+            border-left-color: var(--danger);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Locked Screen & Teacher Bypass */
+        .locked-screen {
+            text-align: center;
+            padding: 2.5rem 1rem;
+        }
+
+        .locked-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .teacher-bypass-zone {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .bypass-input {
+            width: 85px;
+            padding: 0.25rem 0.5rem;
+            border: 1px solid #f1f5f9;
+            background: #ffffff;
+            color: #cbd5e1;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            text-align: center;
+            outline: none;
+        }
+
+        .bypass-input:focus {
+            border-color: #e2e8f0;
+            color: #64748b;
+        }
+
+        .bypass-btn {
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            color: #e2e8f0;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Action Bar at bottom of Quiz */
+        .quiz-footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1.5px solid var(--border);
+        }
+
+        /* Report Modal / Section */
+        .report-box {
+            background: #f8fafc;
+            border: 2px dashed var(--primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.25rem;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #0f172a;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 1.2rem;
+            }
+            .level-tab .lv-title {
+                font-size: 0.85rem;
+            }
+            .level-tab .lv-sub {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>⚡ VẬT LÍ 10 - CHỦ ĐỀ 5: TỐC ĐỘ VÀ VẬN TỐC</h1>
+    <p>Hệ thống luyện tập tương tác & chinh phục 3 cấp độ</p>
+</header>
+
+<div class="container">
+    <!-- 1. MÀN HÌNH KHỞI ĐỘNG (ONBOARDING) -->
+    <div id="onboarding-screen" class="card">
+        <h2 style="margin-bottom: 0.5rem; color: var(--primary-dark);">👋 Chào mừng em đến với bài luyện tập!</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;">
+            Hãy điền đầy đủ thông tin bên dưới để hệ thống ghi nhận mục tiêu và đồng hành cùng em chinh phục bài học hôm nay nhé.
+        </p>
+
+        <form id="onboarding-form">
+            <div class="form-group">
+                <label for="st-name">1. Họ và tên học sinh <span style="color: var(--danger);">*</span></label>
+                <input type="text" id="st-name" class="form-control" placeholder="Ví dụ: Nguyễn Văn An" required>
+            </div>
+
+            <div class="form-group">
+                <label for="st-class">2. Lớp <span style="color: var(--danger);">*</span></label>
+                <input type="text" id="st-class" class="form-control" placeholder="Ví dụ: 10A1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="st-target">3. Mục tiêu điểm số môn Vật lí <span style="color: var(--danger);">*</span></label>
+                <input type="text" id="st-target" class="form-control" placeholder="Ví dụ: 9.5+ điểm" required>
+            </div>
+
+            <div class="form-group">
+                <label for="st-dream">4. Ước mơ của em trong tương lai <span style="color: var(--danger);">*</span></label>
+                <input type="text" id="st-dream" class="form-control" placeholder="Ví dụ: Kỹ sư Hàng không / Bác sĩ / Lập trình viên..." required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">
+                🚀 BẮT ĐẦU CHINH PHỤC NGAY
+            </button>
+        </form>
+    </div>
+
+    <!-- 2. MÀN HÌNH LÀM BÀI CHÍNH -->
+    <div id="quiz-screen" class="hidden">
+        <!-- Thanh thông tin học sinh -->
+        <div class="student-bar">
+            <div>👤 Học sinh: <span id="disp-name"></span> (<span id="disp-class"></span>)</div>
+            <div>🎯 Mục tiêu: <span id="disp-target"></span> | 🌟 Ước mơ: <span id="disp-dream"></span></div>
+            <div>⏱️ Thời gian: <span id="disp-timer">00:00</span></div>
+        </div>
+
+        <!-- Thanh chọn Cấp độ -->
+        <div class="level-tabs">
+            <div class="level-tab active" id="tab-lv1" onclick="switchLevel(1)">
+                <span class="lv-title">🌱 Cấp độ 1</span>
+                <span class="lv-sub">Nhận biết & Thông hiểu (12 câu)</span>
+            </div>
+            <div class="level-tab locked" id="tab-lv2" onclick="switchLevel(2)">
+                <span class="lv-title" id="title-lv2">🔒 Cấp độ 2</span>
+                <span class="lv-sub">Vận dụng 7-8đ (5 câu)</span>
+            </div>
+            <div class="level-tab locked" id="tab-lv3" onclick="switchLevel(3)">
+                <span class="lv-title" id="title-lv3">🔒 Cấp độ 3</span>
+                <span class="lv-sub">Vận dụng cao 9-10đ (5 câu)</span>
+            </div>
+        </div>
+
+        <!-- Nội dung Cấp độ -->
+        <div class="card">
+            <!-- Banner trạng thái cấp độ hiện tại -->
+            <div id="level-status-banner" class="status-banner">
+                <div id="level-requirement-text">
+                    <strong>Yêu cầu Cấp độ 1:</strong> Đạt điểm tuyệt đối <strong>12/12</strong> đủ <strong>3 lượt</strong> để mở khóa Cấp độ 2.
+                </div>
+                <div class="badge-streak" id="level-progress-badge">
+                    🔥 Tích lũy: 0 / 3 lượt 12/12
+                </div>
+            </div>
+
+            <!-- Vùng hiển thị khi Cấp độ bị khóa -->
+            <div id="locked-view" class="locked-screen hidden">
+                <div class="locked-icon">🔒</div>
+                <h3 id="locked-title" style="margin-bottom: 0.5rem; color: var(--text);">Cấp độ này đang khóa!</h3>
+                <p id="locked-desc" style="color: var(--text-muted); max-width: 500px; margin: 0 auto 1.5rem auto;">
+                    Em hãy hoàn thành yêu cầu của cấp độ trước để mở khóa thử thách này nhé.
+                </p>
+                <button class="btn btn-outline" onclick="goBackPreviousLevel()">⬅️ Quay lại cấp độ trước</button>
+
+                <!-- Chế độ dành cho Giáo viên (Bypass tối giản màu trắng) -->
+                <div class="teacher-bypass-zone">
+                    <input type="password" id="bypass-code-input" class="bypass-input" placeholder="Mã GV" maxlength="6"
+                           onkeydown="if(event.key==='Enter') checkTeacherBypass()">
+                    <button type="button" class="bypass-btn" onclick="checkTeacherBypass()">Mở</button>
+                </div>
+            </div>
+
+            <!-- Vùng hiển thị danh sách câu hỏi -->
+            <div id="questions-view">
+                <div id="questions-container"></div>
+
+                <div class="quiz-footer">
+                    <div id="current-run-score" style="font-weight: 700; font-size: 1.05rem; color: var(--primary-dark);">
+                        Đã trả lời: 0 / 12 | Đúng: 0
+                    </div>
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-outline" onclick="startNewAttempt()">
+                            🔄 Làm lượt mới (Trộn đề)
+                        </button>
+                        <button type="button" class="btn btn-success" onclick="showReportSection()">
+                            📊 Hoàn thành & Xem báo cáo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. BẢNG BÁO CÁO KẾT QUẢ -->
+        <div id="report-card" class="card hidden">
+            <h2 style="color: var(--primary-dark); margin-bottom: 0.5rem;">🏆 BÁO CÁO KẾT QUẢ LUYỆN TẬP</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">
+                Dưới đây là tổng hợp quá trình tự luyện của em. Hãy bấm nút <strong>Sao chép kết quả</strong> để gửi cho thầy/cô qua Zalo hoặc LMS nhé!
+            </p>
+
+            <div id="report-content" class="report-box"></div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 1.25rem; flex-wrap: wrap;">
+                <button type="button" class="btn btn-primary" style="flex: 1;" onclick="copyReportToClipboard()">
+                    📋 SAO CHÉP KẾT QUẢ NỘP GIÁO VIÊN
+                </button>
+                <button type="button" class="btn btn-outline" onclick="document.getElementById('report-card').classList.add('hidden')">
+                    Đóng bảng báo cáo
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    /********************************************************************
+     * 1. HỆ THỐNG ÂM THANH TƯƠNG TÁC (WEB AUDIO API THUẦN)
+     ********************************************************************/
+    let audioCtx = null;
+
+    function initAudio() {
+        if (!audioCtx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    function playSoundCorrect() {
+        try {
+            initAudio();
+            const now = audioCtx.currentTime;
+            // Âm thanh vui nhộn: Arpeggio C5 - E5 - G5 - C6
+            const notes = [523.25, 659.25, 783.99, 1046.50];
+            notes.forEach((freq, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+
+                gain.gain.setValueAtTime(0.18, now + idx * 0.07);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.22);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start(now + idx * 0.07);
+                osc.stop(now + idx * 0.07 + 0.23);
+            });
+        } catch (e) { console.log(e); }
+    }
+
+    function playSoundWrong() {
+        try {
+            initAudio();
+            const now = audioCtx.currentTime;
+            // Âm thanh bất ngờ/nhắc nhở khi sai
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(220, now);
+            osc.frequency.linearRampToValueAtTime(130, now + 0.35);
+
+            gain.gain.setValueAtTime(0.15, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(now);
+            osc.stop(now + 0.4);
+        } catch (e) { console.log(e); }
+    }
+
+    function playSoundLevelUp() {
+        try {
+            initAudio();
+            const now = audioCtx.currentTime;
+            const notes = [440, 554.37, 659.25, 880, 1108.73];
+            notes.forEach((freq, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+                gain.gain.setValueAtTime(0.22, now + idx * 0.09);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.3);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now + idx * 0.09);
+                osc.stop(now + idx * 0.09 + 0.32);
+            });
+        } catch (e) { console.log(e); }
+    }
+
+    /********************************************************************
+     * 2. HÌNH VẼ SVG TRỰC QUAN NHÚNG TRONG CÂU HỎI
+     ********************************************************************/
+    const SVG_BANDO_HOA = `
+    <svg width="340" height="210" viewBox="0 0 340 210" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <marker id="arrowD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+            </marker>
+            <marker id="arrowS" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb"/>
+            </marker>
+        </defs>
+        <!-- Góc vuông tại B -->
+        <rect x="235" y="150" width="15" height="15" fill="none" stroke="#64748b" stroke-width="1.5"/>
+        <!-- Đoạn AB = 400m -->
+        <line x1="60" y1="165" x2="248" y2="165" stroke="#2563eb" stroke-width="3" marker-end="url(#arrowS)"/>
+        <!-- Đoạn BC = 300m -->
+        <line x1="250" y1="165" x2="250" y2="38" stroke="#2563eb" stroke-width="3" marker-end="url(#arrowS)"/>
+        <!-- Độ dịch chuyển AC nét đứt -->
+        <line x1="60" y1="165" x2="246" y2="38" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrowD)"/>
+        <!-- Điểm A, B, C -->
+        <circle cx="60" cy="165" r="5" fill="#1e293b"/>
+        <circle cx="250" cy="165" r="5" fill="#1e293b"/>
+        <circle cx="250" cy="35" r="5" fill="#1e293b"/>
+        <text x="20" y="190" font-size="13" font-weight="bold" fill="#1e293b">Nhà A</text>
+        <text x="245" y="190" font-size="13" font-weight="bold" fill="#1e293b">B</text>
+        <text x="230" y="22" font-size="13" font-weight="bold" fill="#1e293b">Trường C</text>
+        <text x="120" y="185" font-size="12" fill="#2563eb" font-weight="bold">AB = 400 m (6 phút)</text>
+        <text x="260" y="105" font-size="12" fill="#2563eb" font-weight="bold">BC = 300 m</text>
+        <text x="260" y="122" font-size="12" fill="#2563eb" font-weight="bold">(4 phút)</text>
+        <text x="120" y="92" font-size="13" fill="#dc2626" font-weight="bold">d = AC</text>
+    </svg>`;
+
+    const SVG_THUYEN_QUA_SONG = `
+    <svg width="360" height="210" viewBox="0 0 360 210" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <marker id="arrV" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#0f172a"/>
+            </marker>
+            <marker id="arrRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+            </marker>
+        </defs>
+        <!-- Hai bờ sông -->
+        <rect x="20" y="30" width="320" height="140" fill="#e0f2fe" opacity="0.6"/>
+        <line x1="20" y1="30" x2="340" y2="30" stroke="#0369a1" stroke-width="2.5"/>
+        <line x1="20" y1="170" x2="340" y2="170" stroke="#0369a1" stroke-width="2.5"/>
+        <!-- Đường gióng nét đứt -->
+        <line x1="220" y1="30" x2="80" y2="170" stroke="#dc2626" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrRed)"/>
+        <line x1="220" y1="30" x2="220" y2="170" stroke="#2563eb" stroke-width="2" stroke-dasharray="5,5"/>
+        <!-- Vector vận tốc tại A -->
+        <line x1="220" y1="170" x2="220" y2="95" stroke="#0f172a" stroke-width="2.2" marker-end="url(#arrV)"/>
+        <line x1="220" y1="170" x2="155" y2="170" stroke="#0f172a" stroke-width="2.2" marker-end="url(#arrV)"/>
+        <line x1="220" y1="170" x2="155" y2="95" stroke="#dc2626" stroke-width="2.2" marker-end="url(#arrRed)"/>
+        <line x1="155" y1="170" x2="155" y2="95" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3,3"/>
+        <line x1="220" y1="95" x2="155" y2="95" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3,3"/>
+        <!-- Nhãn -->
+        <circle cx="220" cy="170" r="4" fill="#0f172a"/>
+        <circle cx="220" cy="30" r="4" fill="#0f172a"/>
+        <circle cx="80" cy="30" r="4" fill="#dc2626"/>
+        <text x="215" y="192" font-size="13" font-weight="bold">A</text>
+        <text x="215" y="20" font-size="13" font-weight="bold">B</text>
+        <text x="75" y="20" font-size="13" font-weight="bold" fill="#dc2626">C</text>
+        <text x="135" y="22" font-size="12" fill="#0f172a" font-weight="bold">BC = 180 m</text>
+        <text x="230" y="75" font-size="12" fill="#2563eb" font-weight="bold">AB = 240 m</text>
+        <text x="226" y="125" font-size="12" font-weight="bold">v₁₂</text>
+        <text x="172" y="188" font-size="12" font-weight="bold">v₂₃</text>
+        <text x="180" y="122" font-size="12" fill="#dc2626" font-weight="bold">v₁₃</text>
+    </svg>`;
+
+    const SVG_MUA_ROI = `
+    <svg width="320" height="190" viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <marker id="arrM" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e293b"/>
+            </marker>
+            <marker id="arrMRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626"/>
+            </marker>
+        </defs>
+        <!-- Góc vuông -->
+        <rect x="198" y="35" width="12" height="12" fill="none" stroke="#64748b" stroke-width="1.2"/>
+        <!-- Vector v13 thẳng đứng xuống (mưa so với đất) -->
+        <line x1="210" y1="35" x2="210" y2="155" stroke="#1e293b" stroke-width="2.2" marker-end="url(#arrM)"/>
+        <!-- Vector -v23 ngang (đất so với xe) -->
+        <line x1="210" y1="35" x2="120" y2="35" stroke="#2563eb" stroke-width="2.2" marker-end="url(#arrM)"/>
+        <!-- Đường gióng nét đứt -->
+        <line x1="120" y1="35" x2="120" y2="155" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <line x1="210" y1="155" x2="120" y2="155" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <!-- Vector v12 xiên (mưa so với xe) -->
+        <line x1="210" y1="35" x2="120" y2="155" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arrMRed)"/>
+        <!-- Cung góc 30 độ -->
+        <path d="M 210 75 A 40 40 0 0 1 186 67" fill="none" stroke="#dc2626" stroke-width="1.5"/>
+        <text x="182" y="90" font-size="12" fill="#dc2626" font-weight="bold">30°</text>
+        <text x="220" y="105" font-size="13" font-weight="bold" fill="#1e293b">v₁₃ (mưa/đất)</text>
+        <text x="140" y="25" font-size="12" font-weight="bold" fill="#2563eb">v₂₃ = 18 km/h</text>
+        <text x="72" y="105" font-size="13" font-weight="bold" fill="#dc2626">v₁₂ (mưa/xe)</text>
+    </svg>`;
+
+    const SVG_GIOT_DAU = `
+    <svg width="380" height="95" viewBox="0 0 380 95" xmlns="http://www.w3.org/2000/svg">
+        <!-- Mặt đường -->
+        <rect x="20" y="20" width="340" height="35" rx="4" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+        <!-- 6 giọt dầu cách đều nhau (5 khoảng) -->
+        <circle cx="40" cy="37" r="4.5" fill="#0f172a"/>
+        <circle cx="100" cy="37" r="4.5" fill="#0f172a"/>
+        <circle cx="160" cy="37" r="4.5" fill="#0f172a"/>
+        <circle cx="220" cy="37" r="4.5" fill="#0f172a"/>
+        <circle cx="280" cy="37" r="4.5" fill="#0f172a"/>
+        <circle cx="340" cy="37" r="4.5" fill="#0f172a"/>
+        <!-- Đường gióng kích thước 375 m -->
+        <line x1="40" y1="55" x2="40" y2="82" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <line x1="340" y1="55" x2="340" y2="82" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <line x1="40" y1="75" x2="340" y2="75" stroke="#dc2626" stroke-width="2"/>
+        <text x="165" y="70" font-size="13" font-weight="bold" fill="#dc2626">375 m (cứ 5 s rơi 1 giọt)</text>
+    </svg>`;
+
+    /********************************************************************
+     * 3. NGÂN HÀNG CÂU HỎI BÁM SÁT CHỦ ĐỀ 5 (TỐC ĐỘ VÀ VẬN TỐC)
+     ********************************************************************/
+    const QUESTION_BANK = {
+        // CẤP ĐỘ 1: 12 CÂU (Nhận biết & Thông hiểu căn bản)
+        1: [
+            {
+                id: "L1_Q1",
+                text: "Đồng hồ đo tốc độ (tốc kế) đặt trước mặt người lái xe máy, ô tô đang chạy trên đường chỉ đại lượng nào sau đây?",
+                options: [
+                    "Tốc độ tức thời của xe tại thời điểm đó.",
+                    "Tốc độ trung bình của xe trên cả quãng đường.",
+                    "Vận tốc trung bình của xe từ lúc xuất phát.",
+                    "Quãng đường xe đi được trong 1 giờ."
+                ],
+                correctIndex: 0,
+                explanation: "Tốc kế trên xe máy, ô tô hiển thị <strong>tốc độ tức thời</strong> (độ nhanh, chậm của xe ngay tại thời điểm người lái quan sát)."
+            },
+            {
+                id: "L1_Q2",
+                text: "Gọi $s$ là quãng đường vật đi được và $t$ là thời gian đi hết quãng đường đó. Biểu thức tính tốc độ trung bình của vật là:",
+                options: [
+                    "$v = \\dfrac{s}{t}$",
+                    "$v = s \\cdot t$",
+                    "$v = \\dfrac{t}{s}$",
+                    "$v = s^2 \\cdot t$"
+                ],
+                correctIndex: 0,
+                explanation: "Tốc độ trung bình được xác định bằng thương số giữa quãng đường đi được và thời gian chuyển động: $v = \\dfrac{s}{t}$."
+            },
+            {
+                id: "L1_Q3",
+                text: "Gọi $\\vec{d}$ là độ dịch chuyển và $t$ là thời gian dịch chuyển. Biểu thức xác định vận tốc trung bình của vật là:",
+                options: [
+                    "$\\vec{v} = \\dfrac{\\vec{d}}{t}$",
+                    "$\\vec{v} = \\vec{d} \\cdot t$",
+                    "$\\vec{v} = \\dfrac{t}{\\vec{d}}$",
+                    "$v = s \\cdot t$"
+                ],
+                correctIndex: 0,
+                explanation: "Vận tốc trung bình là đại lượng vector, bằng thương số giữa độ dịch chuyển $\\vec{d}$ và thời gian dịch chuyển $t$: $\\vec{v} = \\dfrac{\\vec{d}}{t}$."
+            },
+            {
+                id: "L1_Q4",
+                text: "Khi đổi đơn vị đo tốc độ trong hệ SI sang đơn vị thông dụng, hệ thức quy đổi nào sau đây là <strong>đúng</strong>?",
+                options: [
+                    "$1\\text{ m/s} = 3,6\\text{ km/h}$",
+                    "$1\\text{ km/h} = 3,6\\text{ m/s}$",
+                    "$1\\text{ m/s} = 10\\text{ km/h}$",
+                    "$1\\text{ m/s} = 60\\text{ km/h}$"
+                ],
+                correctIndex: 0,
+                explanation: "Ta có: $1\\text{ m/s} = \\dfrac{1/1000\\text{ km}}{1/3600\\text{ h}} = 3,6\\text{ km/h}$. Muốn đổi từ m/s sang km/h ta nhân với $3,6$."
+            },
+            {
+                id: "L1_Q5",
+                text: "Hai đại lượng nào sau đây đều là <strong>đại lượng vector</strong> (có cả độ lớn và phương, chiều)?",
+                options: [
+                    "Độ dịch chuyển và vận tốc.",
+                    "Quãng đường và tốc độ.",
+                    "Tốc độ tức thời và thời gian.",
+                    "Quãng đường và độ dịch chuyển."
+                ],
+                correctIndex: 0,
+                explanation: "Độ dịch chuyển $\\vec{d}$ và vận tốc $\\vec{v}$ là hai đại lượng vector. Còn quãng đường $s$, thời gian $t$ và tốc độ $v$ là các đại lượng vô hướng."
+            },
+            {
+                id: "L1_Q6",
+                text: "Phát biểu nào sau đây về mối liên hệ giữa vận tốc và tốc độ là <strong>đúng</strong>?",
+                options: [
+                    "Độ lớn của vận tốc tức thời luôn bằng tốc độ tức thời ($v = |\\vec{v}|$).",
+                    "Độ lớn của vận tốc trung bình luôn bằng tốc độ trung bình trong mọi chuyển động.",
+                    "Tốc độ trung bình có thể nhận giá trị âm, dương hoặc bằng 0.",
+                    "Vector vận tốc luôn ngược chiều với chiều chuyển động của vật."
+                ],
+                correctIndex: 0,
+                explanation: "Xét trong khoảng thời gian rất ngắn $\\Delta t$, vật chưa kịp đổi chiều nên độ lớn vận tốc tức thời luôn bằng tốc độ tức thời: $v = |\\vec{v}|$."
+            },
+            {
+                id: "L1_Q7",
+                text: "Một người đi bộ từ nhà đến cửa hàng tạp hóa cách nhà $300\\text{ m}$, sau đó đi tiếp đến công viên cách cửa hàng tạp hóa $200\\text{ m}$ rồi quay trở về đúng tại nhà. Độ dịch chuyển tổng cộng của người này là:",
+                options: [
+                    "$0\\text{ m}$",
+                    "$1000\\text{ m}$",
+                    "$500\\text{ m}$",
+                    "$600\\text{ m}$"
+                ],
+                correctIndex: 0,
+                explanation: "Vì vị trí cuối trùng với vị trí đầu (trở về nhà) nên độ dịch chuyển của người đó bằng $0\\text{ m}$ (dù quãng đường đi được là $1000\\text{ m}$)."
+            },
+            {
+                id: "L1_Q8",
+                text: "Bạn An được mẹ nhờ đi mua hàng ngoài chợ cách nhà $60\\text{ m}$. Lúc đi mất $45\\text{ s}$, mua xong quay về nhà hết $35\\text{ s}$. Tốc độ trung bình của bạn An trên cả quãng đường đi và về là:",
+                options: [
+                    "$1,5\\text{ m/s}$",
+                    "$0\\text{ m/s}$",
+                    "$1,33\\text{ m/s}$",
+                    "$1,71\\text{ m/s}$"
+                ],
+                correctIndex: 0,
+                explanation: "Tổng quãng đường cả đi lẫn về là $s = 60 + 60 = 120\\text{ m}$. Tổng thời gian $t = 45 + 35 = 80\\text{ s}$. Tốc độ trung bình: $v_{tb} = \\dfrac{s_1+s_2}{t_1+t_2} = \\dfrac{120}{80} = 1,5\\text{ m/s}$."
+            },
+            {
+                id: "L1_Q9",
+                text: "Người lái đò đang ngồi yên trên chiếc thuyền thả trôi theo dòng nước. Nhận xét nào sau đây là <strong>đúng</strong>?",
+                options: [
+                    "Người lái đò đứng yên so với dòng nước và chuyển động so với bờ sông.",
+                    "Người lái đò chuyển động so với chiếc thuyền.",
+                    "Người lái đò đứng yên so với bờ sông.",
+                    "Người lái đò chuyển động so với mặt nước."
+                ],
+                correctIndex: 0,
+                explanation: "Do thuyền thả trôi theo nước nên vị trí người lái đò không đổi so với mặt nước (đứng yên so với nước) nhưng thay đổi so với bờ sông."
+            },
+            {
+                id: "L1_Q10",
+                text: "Gọi (1) là thuyền, (2) là dòng nước, (3) là bờ sông. Công thức cộng vận tốc nào sau đây là <strong>đúng</strong>?",
+                options: [
+                    "$\\vec{v}_{13} = \\vec{v}_{12} + \\vec{v}_{23}$",
+                    "$\\vec{v}_{13} = \\vec{v}_{12} - \\vec{v}_{23}$",
+                    "$\\vec{v}_{12} = \\vec{v}_{13} + \\vec{v}_{23}$",
+                    "$\\vec{v}_{23} = \\vec{v}_{12} + \\vec{v}_{13}$"
+                ],
+                correctIndex: 0,
+                explanation: "Theo quy tắc cộng vận tốc: Vận tốc tuyệt đối bằng tổng vector vận tốc tương đối và vận tốc kéo theo: $\\vec{v}_{13} = \\vec{v}_{12} + \\vec{v}_{23}$."
+            },
+            {
+                id: "L1_Q11",
+                text: "Một con kiến bò trên một thanh củi với tốc độ $3\\text{ km/h}$ cùng chiều với dòng nước. Biết thanh củi đang trôi theo dòng nước với tốc độ $10\\text{ km/h}$ so với bờ. Tốc độ của con kiến so với bờ là:",
+                options: [
+                    "$13\\text{ km/h}$",
+                    "$7\\text{ km/h}$",
+                    "$30\\text{ km/h}$",
+                    "$10,44\\text{ km/h}$"
+                ],
+                correctIndex: 0,
+                explanation: "Vì kiến bò cùng chiều dòng nước ($\\vec{v}_{12} \\uparrow\\uparrow \\vec{v}_{23}$) nên $v_{13} = v_{12} + v_{23} = 3 + 10 = 13\\text{ km/h}$."
+            },
+            {
+                id: "L1_Q12",
+                text: "Khi lái xe trên đường cao tốc với tốc độ $90\\text{ km/h}$, nếu người lái xe hắt hơi và nhắm mắt mất tập trung trong $0,5\\text{ s}$ thì trong khoảng thời gian đó xe đã tự trôi đi một quãng đường bằng bao nhiêu?",
+                options: [
+                    "$12,5\\text{ m}$",
+                    "$45\\text{ m}$",
+                    "$25\\text{ m}$",
+                    "$18\\text{ m}$"
+                ],
+                correctIndex: 0,
+                explanation: "Đổi $v = 90\\text{ km/h} = \\dfrac{90}{3,6} = 25\\text{ m/s}$. Quãng đường xe đi được trong $0,5\\text{ s}$ nhắm mắt là: $s = v \\cdot t = 25 \\times 0,5 = 12,5\\text{ m}$."
+            }
+        ],
+
+        // CẤP ĐỘ 2: 5 CÂU (Điểm 7-8 / Vận dụng - Có 1 câu gài bẫy tinh tế)
+        2: [
+            {
+                id: "L2_Q1",
+                isTrap: true,
+                text: "Một người đi xe máy trên một đường thẳng: từ Nhà đến Nhà sách đi quãng đường $3\\text{ km}$ mất $15\\text{ phút}$, sau đó quay lại đi đến Trường với quãng đường $2\\text{ km}$ mất $12\\text{ phút}$. Biết Trường nằm giữa Nhà và Nhà sách. Độ lớn <strong>vận tốc trung bình</strong> của người đi xe máy trong cả hành trình là:",
+                options: [
+                    "$0,62\\text{ m/s}$",
+                    "$3,09\\text{ m/s}$",
+                    "$1,85\\text{ m/s}$",
+                    "$11,1\\text{ m/s}$"
+                ],
+                correctIndex: 0,
+                explanation: "⚠️ <strong>Bẫy vật lí:</strong> Đề hỏi <strong>vận tốc trung bình</strong> ($v_{tb} = \\dfrac{d}{t}$) chứ không phải tốc độ trung bình ($\\dfrac{s}{t}$)!<br>• Vì Trường nằm giữa Nhà và Nhà sách nên độ dịch chuyển tổng cộng từ Nhà đến Trường là: $d = 3\\text{ km} - 2\\text{ km} = 1\\text{ km} = 1000\\text{ m}$.<br>• Tổng thời gian: $t = (15 + 12)\\times 60 = 1620\\text{ s}$.<br>• Độ lớn vận tốc trung bình: $v_{tb} = \\dfrac{d}{t} = \\dfrac{1000}{1620} \\approx 0,62\\text{ m/s}$ (Nếu lấy $s = 5000\\text{ m}$ chia cho $1620\\text{ s}$ ra $3,09\\text{ m/s}$ là bị sập bẫy!)."
+            },
+            {
+                id: "L2_Q2",
+                text: "Một chiếc thuyền chuyển động ngược dòng với tốc độ $14,4\\text{ km/h}$ so với mặt nước, nước chảy với tốc độ $2\\text{ m/s}$ so với bờ. Tốc độ của thuyền so với bờ là:",
+                options: [
+                    "$2\\text{ m/s}$",
+                    "$6\\text{ m/s}$",
+                    "$12,4\\text{ km/h}$",
+                    "$16,4\\text{ km/h}$"
+                ],
+                correctIndex: 0,
+                explanation: "Cần đồng nhất đơn vị trước khi tính: $v_{t/n} = 14,4\\text{ km/h} = \\dfrac{14,4}{3,6} = 4\\text{ m/s}$.<br>Vì thuyền đi ngược dòng nên: $v_{t/b} = v_{t/n} - v_{n/b} = 4 - 2 = 2\\text{ m/s}$."
+            },
+            {
+                id: "L2_Q3",
+                text: "Một chiếc ghe đi xuôi dòng từ bến đến chợ rồi lập tức ngược dòng quay về bến cũ. Biết tốc độ của ghe so với nước là $15\\text{ km/h}$, tốc độ của nước so với bờ là $3\\text{ km/h}$ và quãng đường từ bến đến chợ dài $18\\text{ km}$. Tổng thời gian cả đi lẫn về của ghe là:",
+                options: [
+                    "$2,5\\text{ giờ}$",
+                    "$2,0\\text{ giờ}$",
+                    "$3,0\\text{ giờ}$",
+                    "$2,4\\text{ giờ}$"
+                ],
+                correctIndex: 0,
+                explanation: "• Khi xuôi dòng: $v_{xd} = 15 + 3 = 18\\text{ km/h} \\Rightarrow t_{xd} = \\dfrac{18}{18} = 1\\text{ giờ}$.<br>• Khi ngược dòng: $v_{nd} = 15 - 3 = 12\\text{ km/h} \\Rightarrow t_{nd} = \\dfrac{18}{12} = 1,5\\text{ giờ}$.<br>• Tổng thời gian: $t = t_{xd} + t_{nd} = 1 + 1,5 = 2,5\\text{ giờ}$."
+            },
+            {
+                id: "L2_Q4",
+                text: "Một người đi xe đạp trên $\\dfrac{2}{3}$ đoạn đường đầu với tốc độ trung bình $15\\text{ km/h}$ và $\\dfrac{1}{3}$ đoạn đường sau với tốc độ trung bình $20\\text{ km/h}$. Tốc độ trung bình của người đi xe đạp trên cả quãng đường xấp xỉ là:",
+                options: [
+                    "$16,36\\text{ km/h}$",
+                    "$17,50\\text{ km/h}$",
+                    "$16,67\\text{ km/h}$",
+                    "$15,85\\text{ km/h}$"
+                ],
+                correctIndex: 0,
+                explanation: "Áp dụng công thức tốc độ trung bình: $v_{tb} = \\dfrac{s}{t_1 + t_2} = \\dfrac{s}{\\dfrac{2s/3}{15} + \\dfrac{s/3}{20}} = \\dfrac{1}{\\dfrac{2}{45} + \\dfrac{1}{60}} = \\dfrac{180}{11} \\approx 16,36\\text{ km/h}$."
+            },
+            {
+                id: "L2_Q5",
+                svg: SVG_BANDO_HOA,
+                text: "Bạn Hoa đi học từ nhà A đến trường C theo lộ trình vuông góc ABC như hình vẽ bên. Biết đoạn đường $AB = 400\\text{ m}$ đi hết $6\\text{ phút}$, đoạn đường $BC = 300\\text{ m}$ đi hết $4\\text{ phút}$. Tốc độ trung bình ($v_{tb}$) và độ lớn vận tốc trung bình ($|\\vec{v}_{tb}|$) của bạn Hoa khi đi từ nhà đến trường lần lượt là:",
+                options: [
+                    "$v_{tb} = \\dfrac{7}{6}\\text{ m/s}$ và $|\\vec{v}_{tb}| = \\dfrac{5}{6}\\text{ m/s}$",
+                    "$v_{tb} = \\dfrac{5}{6}\\text{ m/s}$ và $|\\vec{v}_{tb}| = \\dfrac{7}{6}\\text{ m/s}$",
+                    "$v_{tb} = 70\\text{ m/s}$ và $|\\vec{v}_{tb}| = 50\\text{ m/s}$",
+                    "$v_{tb} = \\dfrac{7}{6}\\text{ m/s}$ và $|\\vec{v}_{tb}| = \\dfrac{7}{6}\\text{ m/s}$"
+                ],
+                correctIndex: 0,
+                explanation: "• Tổng thời gian: $t = (6 + 4)\\times 60 = 600\\text{ s}$.<br>• Quãng đường: $s = AB + BC = 400 + 300 = 700\\text{ m} \\Rightarrow v_{tb} = \\dfrac{700}{600} = \\dfrac{7}{6}\\text{ m/s}$.<br>• Độ dịch chuyển: $d = AC = \\sqrt{AB^2 + BC^2} = \\sqrt{400^2 + 300^2} = 500\\text{ m} \\Rightarrow |\\vec{v}_{tb}| = \\dfrac{500}{600} = \\dfrac{5}{6}\\text{ m/s}$."
+            }
+        ],
+
+        // CẤP ĐỘ 3: 5 CÂU (Điểm 9-10 / Vận dụng cao - Có 1 câu gài bẫy nâng cao)
+        3: [
+            {
+                id: "L3_Q1",
+                svg: SVG_THUYEN_QUA_SONG,
+                text: "Một chiếc thuyền chuyển động từ điểm A của bờ bên này, mũi thuyền luôn hướng vuông góc với bờ để sang điểm B đối diện ở bờ bên kia của con sông rộng $AB = 240\\text{ m}$. Do nước chảy siết nên sau $1\\text{ phút}$, thuyền cập bến tại điểm C cách B một đoạn $BC = 180\\text{ m}$ (hình vẽ). Tốc độ của thuyền so với dòng nước ($v_{12}$) và tốc độ của thuyền so với bờ ($v_{13}$) lần lượt là:",
+                options: [
+                    "$v_{12} = 4\\text{ m/s}$ và $v_{13} = 5\\text{ m/s}$",
+                    "$v_{12} = 3\\text{ m/s}$ và $v_{13} = 5\\text{ m/s}$",
+                    "$v_{12} = 4\\text{ m/s}$ và $v_{13} = 3\\text{ m/s}$",
+                    "$v_{12} = 5\\text{ m/s}$ và $v_{13} = 4\\text{ m/s}$"
+                ],
+                correctIndex: 0,
+                explanation: "• Thời gian qua sông $t = 1\\text{ phút} = 60\\text{ s}$.<br>• Do mũi thuyền hướng vuông góc bờ ($AB$) nên chuyển động thành phần theo phương $AB$ chính là vận tốc thuyền so với nước: $v_{12} = \\dfrac{AB}{t} = \\dfrac{240}{60} = 4\\text{ m/s}$.<br>• Quãng đường thực tế so với bờ là $AC = \\sqrt{AB^2 + BC^2} = \\sqrt{240^2 + 180^2} = 300\\text{ m} \\Rightarrow v_{13} = \\dfrac{AC}{t} = \\dfrac{300}{60} = 5\\text{ m/s}$."
+            },
+            {
+                id: "L3_Q2",
+                isTrap: true,
+                svg: SVG_GIOT_DAU,
+                text: "Một ô tô chạy thử nghiệm với tốc độ không đổi trên một đoạn đường thẳng. Cứ sau mỗi $5\\text{ s}$ thì có một giọt dầu từ động cơ rơi thẳng xuống mặt đường. Hình vẽ bên cho thấy <strong>6 vết giọt dầu liên tiếp</strong> để lại trên mặt đường cách nhau tổng cộng $375\\text{ m}$. Tốc độ trung bình của ô tô trên đoạn đường này là:",
+                options: [
+                    "$15\\text{ m/s}$",
+                    "$12,5\\text{ m/s}$",
+                    "$25\\text{ m/s}$",
+                    "$18,75\\text{ m/s}$"
+                ],
+                correctIndex: 0,
+                explanation: "⚠️ <strong>Bẫy nâng cao:</strong> Có <strong>6 giọt dầu</strong> nhưng giữa 6 giọt dầu chỉ có <strong>5 khoảng thời gian</strong>!<br>• Tổng thời gian xe đi hết $375\\text{ m}$ là: $t = (6 - 1) \\times 5\\text{ s} = 25\\text{ s}$ (Học sinh lấy $6 \\times 5 = 30\\text{ s}$ sẽ ra đáp án nhiễu $12,5\\text{ m/s}$).<br>• Tốc độ của ô tô là: $v = \\dfrac{s}{t} = \\dfrac{375}{25} = 15\\text{ m/s}$."
+            },
+            {
+                id: "L3_Q3",
+                text: "Một hành khách ngồi trên toa tàu lửa số 1 đang chạy với tốc độ $15\\text{ m/s}$ quan sát qua khe cửa thấy đoàn tàu số 2 chạy <strong>cùng chiều</strong> trên đường sắt bên cạnh (tàu 1 chạy nhanh hơn tàu 2). Từ lúc nhìn thấy điểm cuối đến lúc nhìn thấy điểm đầu của đoàn tàu số 2 mất hết $8\\text{ s}$. Biết đoàn tàu số 2 gồm $20\\text{ toa}$, mỗi toa dài $4\\text{ m}$. Tốc độ của đoàn tàu số 2 so với mặt đất là:",
+                options: [
+                    "$5\\text{ m/s}$",
+                    "$10\\text{ m/s}$",
+                    "$25\\text{ m/s}$",
+                    "$7\\text{ m/s}$"
+                ],
+                correctIndex: 0,
+                explanation: "• Chiều dài đoàn tàu số 2 là: $L = 20 \\times 4 = 80\\text{ m}$.<br>• Tốc độ tương đối của hành khách (tàu 1) so với tàu 2 là: $v_{12} = \\dfrac{L}{t} = \\dfrac{80}{8} = 10\\text{ m/s}$.<br>• Vì hai tàu chạy cùng chiều và tàu 1 nhanh hơn tàu 2 nên: $v_{12} = v_1 - v_2 \\Rightarrow v_2 = v_1 - v_{12} = 15 - 10 = 5\\text{ m/s}$."
+            },
+            {
+                id: "L3_Q4",
+                text: "Một ô tô chuyển động thẳng trên đoạn đường AB. Nửa <strong>quãng đường</strong> đầu ô tô đi với tốc độ $60\\text{ km/h}$. Trên nửa quãng đường còn lại, ô tô đi nửa <strong>thời gian</strong> đầu với tốc độ $40\\text{ km/h}$ và nửa thời gian sau với tốc độ $20\\text{ km/h}$. Tốc độ trung bình của ô tô trên cả quãng đường AB là:",
+                options: [
+                    "$40\\text{ km/h}$",
+                    "$45\\text{ km/h}$",
+                    "$36\\text{ km/h}$",
+                    "$50\\text{ km/h}$"
+                ],
+                correctIndex: 0,
+                explanation: "• Xét nửa quãng đường sau ($s_2 = S/2$): Vì đi trong hai nửa thời gian bằng nhau nên tốc độ trung bình trên đoạn sau là trung bình cộng: $v_2 = \\dfrac{40 + 20}{2} = 30\\text{ km/h}$.<br>• Xét cả quãng đường $S$ chia làm 2 nửa quãng đường bằng nhau với $v_1 = 60\\text{ km/h}$ và $v_2 = 30\\text{ km/h}$:<br>$v_{tb} = \\dfrac{2 v_1 v_2}{v_1 + v_2} = \\dfrac{2 \\times 60 \\times 30}{60 + 30} = 40\\text{ km/h}$."
+            },
+            {
+                id: "L3_Q5",
+                svg: SVG_MUA_ROI,
+                text: "Một chiếc xe đang chạy thẳng đều với tốc độ $18\\text{ km/h}$ trong trời mưa. Giả sử các hạt mưa rơi thẳng đứng và đều đối với mặt đất. Người ngồi trên xe nhìn qua cửa kính thấy các vệt mưa rơi xiên góc $30^\\circ$ so với phương thẳng đứng (hình vẽ). Tốc độ rơi của hạt mưa đối với mặt đất là:",
+                options: [
+                    "$5\\sqrt{3}\\text{ m/s}$",
+                    "$5\\text{ m/s}$",
+                    "$18\\sqrt{3}\\text{ m/s}$",
+                    "$10\\text{ m/s}$"
+                ],
+                correctIndex: 0,
+                explanation: "• Đổi tốc độ của xe: $v_{23} = 18\\text{ km/h} = 5\\text{ m/s}$.<br>• Từ tam giác vuông vận tốc (hình vẽ): $\\tan 30^\\circ = \\dfrac{v_{23}}{v_{13}} \\Rightarrow v_{13} = \\dfrac{v_{23}}{\\tan 30^\\circ} = \\dfrac{5}{1/\\sqrt{3}} = 5\\sqrt{3}\\text{ m/s}$."
+            }
+        ]
+    };
+
+    /********************************************************************
+     * 4. BIẾN TRẠNG THÁI & LOGIC TRÒ CHƠI HÓA (PROGRESSION)
+     ********************************************************************/
+    let studentInfo = {
+        name: "",
+        className: "",
+        target: "",
+        dream: ""
+    };
+
+    let currentLevel = 1;
+    let currentQuestions = [];
+    let answeredCount = 0;
+    let currentCorrectCount = 0;
+
+    // Tiến độ mở khóa & thống kê
+    let stats = {
+        lv1PerfectStreak: 0, // Phải đạt đủ 3 lượt 12/12 để mở khóa Cấp độ 2
+        lv1Attempts: 0,
+        lv1Best: 0,
+
+        lv2Unlocked: false,
+        lv2PassedCount: 0,   // Hoàn thành đạt yêu cầu (5/5) để mở khóa Cấp độ 3
+        lv2Attempts: 0,
+        lv2Best: 0,
+
+        lv3Unlocked: false,
+        lv3PassedCount: 0,
+        lv3Attempts: 0,
+        lv3Best: 0,
+
+        startTime: null,
+        elapsedSeconds: 0
+    };
+
+    let timerInterval = null;
+
+    // Thuật toán xáo trộn mảng Fisher-Yates chuẩn mực
+    function shuffleArray(arr) {
+        const copy = [...arr];
+        for (let i = copy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+    }
+
+    // Khởi tạo bài làm sau khi học sinh điền Onboarding
+    document.getElementById('onboarding-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        studentInfo.name = document.getElementById('st-name').value.trim();
+        studentInfo.className = document.getElementById('st-class').value.trim();
+        studentInfo.target = document.getElementById('st-target').value.trim();
+        studentInfo.dream = document.getElementById('st-dream').value.trim();
+
+        if (!studentInfo.name || !studentInfo.className || !studentInfo.target || !studentInfo.dream) {
+            alert("Vui lòng nhập đầy đủ thông tin trước khi bắt đầu!");
+            return;
+        }
+
+        document.getElementById('disp-name').textContent = studentInfo.name;
+        document.getElementById('disp-class').textContent = studentInfo.className;
+        document.getElementById('disp-target').textContent = studentInfo.target;
+        document.getElementById('disp-dream').textContent = studentInfo.dream;
+
+        document.getElementById('onboarding-screen').classList.add('hidden');
+        document.getElementById('quiz-screen').classList.remove('hidden');
+
+        stats.startTime = Date.now();
+        startTimer();
+        switchLevel(1);
+    });
+
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            stats.elapsedSeconds = Math.floor((Date.now() - stats.startTime) / 1000);
+            const mins = String(Math.floor(stats.elapsedSeconds / 60)).padStart(2, '0');
+            const secs = String(stats.elapsedSeconds % 60).padStart(2, '0');
+            document.getElementById('disp-timer').textContent = `${mins}:${secs}`;
+        }, 1000);
+    }
+
+    function updateTabsUI() {
+        // Cập nhật trạng thái Tab 1, 2, 3
+        [1, 2, 3].forEach(lv => {
+            const tab = document.getElementById(`tab-lv${lv}`);
+            tab.classList.toggle('active', currentLevel === lv);
+        });
+
+        const tab2 = document.getElementById('tab-lv2');
+        const title2 = document.getElementById('title-lv2');
+        if (stats.lv2Unlocked) {
+            tab2.classList.remove('locked');
+            title2.textContent = "⚡ Cấp độ 2";
+        } else {
+            tab2.classList.add('locked');
+            title2.textContent = "🔒 Cấp độ 2";
+        }
+
+        const tab3 = document.getElementById('tab-lv3');
+        const title3 = document.getElementById('title-lv3');
+        if (stats.lv3Unlocked) {
+            tab3.classList.remove('locked');
+            title3.textContent = "🔥 Cấp độ 3";
+        } else {
+            tab3.classList.add('locked');
+            title3.textContent = "🔒 Cấp độ 3";
+        }
+    }
+
+    function updateStatusBanner() {
+        const banner = document.getElementById('level-status-banner');
+        const reqText = document.getElementById('level-requirement-text');
+        const badge = document.getElementById('level-progress-badge');
+
+        if (currentLevel === 1) {
+            banner.classList.toggle('unlocked', stats.lv2Unlocked);
+            reqText.innerHTML = `<strong>Yêu cầu Cấp độ 1:</strong> Tích lũy đủ <strong>3 lượt đạt 12/12 câu</strong> để mở khóa Cấp độ 2.`;
+            badge.innerHTML = `🔥 Đạt 12/12: ${stats.lv1PerfectStreak} / 3 lượt`;
+        } else if (currentLevel === 2) {
+            banner.classList.toggle('unlocked', stats.lv3Unlocked);
+            reqText.innerHTML = `<strong>Yêu cầu Cấp độ 2 (Vận dụng):</strong> Đạt <strong>5/5 câu</strong> để mở khóa Cấp độ 3. <em>(Chú ý có 1 câu gài bẫy!)</em>`;
+            badge.innerHTML = `⭐ Kỷ lục Cấp 2: ${stats.lv2Best} / 5 câu`;
+        } else if (currentLevel === 3) {
+            banner.classList.toggle('unlocked', stats.lv3PassedCount > 0);
+            reqText.innerHTML = `<strong>Yêu cầu Cấp độ 3 (Vận dụng cao):</strong> Chinh phục <strong>5/5 câu</strong> để hoàn thành xuất sắc bài học!`;
+            badge.innerHTML = `👑 Kỷ lục Cấp 3: ${stats.lv3Best} / 5 câu`;
+        }
+    }
+
+    function switchLevel(lv) {
+        currentLevel = lv;
+        updateTabsUI();
+        updateStatusBanner();
+
+        const lockedView = document.getElementById('locked-view');
+        const questionsView = document.getElementById('questions-view');
+        const bypassInput = document.getElementById('bypass-code-input');
+        if (bypassInput) bypassInput.value = "";
+
+        if (lv === 2 && !stats.lv2Unlocked) {
+            lockedView.classList.remove('hidden');
+            questionsView.classList.add('hidden');
+            document.getElementById('locked-title').textContent = "🔒 Cấp độ 2 đang khóa!";
+            document.getElementById('locked-desc').innerHTML = `Em cần tích lũy đủ <strong>3 lượt đạt 12/12</strong> ở Cấp độ 1 để mở khóa. (Hiện tại: <strong>${stats.lv1PerfectStreak}/3 lượt</strong>).`;
+            return;
+        }
+
+        if (lv === 3 && !stats.lv3Unlocked) {
+            lockedView.classList.remove('hidden');
+            questionsView.classList.add('hidden');
+            document.getElementById('locked-title').textContent = "🔒 Cấp độ 3 đang khóa!";
+            document.getElementById('locked-desc').innerHTML = `Em cần hoàn thành đạt yêu cầu <strong>Cấp độ 2 (5/5 câu)</strong> trước khi bước vào Cấp độ 3 nhé!`;
+            return;
+        }
+
+        lockedView.classList.add('hidden');
+        questionsView.classList.remove('hidden');
+        startNewAttempt();
+    }
+
+    function goBackPreviousLevel() {
+        if (currentLevel === 3 && stats.lv2Unlocked) {
+            switchLevel(2);
+        } else {
+            switchLevel(1);
+        }
+    }
+
+    // Chế độ Giáo viên (Bypass với mã 1819)
+    function checkTeacherBypass() {
+        const code = document.getElementById('bypass-code-input').value.trim();
+        if (code === "1819") {
+            if (currentLevel === 2) {
+                stats.lv2Unlocked = true;
+            } else if (currentLevel === 3) {
+                stats.lv2Unlocked = true;
+                stats.lv3Unlocked = true;
+            }
+            playSoundLevelUp();
+            switchLevel(currentLevel);
+        } else {
+            playSoundWrong();
+            document.getElementById('bypass-code-input').value = "";
+        }
+    }
+
+    // Bắt đầu một lượt làm bài mới (Trộn câu hỏi & Trộn đáp án A, B, C, D)
+    function startNewAttempt() {
+        const rawList = QUESTION_BANK[currentLevel];
+        const shuffledQuestions = shuffleArray(rawList);
+
+        currentQuestions = shuffledQuestions.map(q => {
+            // Tạo mảng các đối tượng phương án kèm cờ isCorrect
+            const optObjects = q.options.map((text, idx) => ({
+                text: text,
+                isCorrect: idx === q.correctIndex
+            }));
+            const shuffledOpts = shuffleArray(optObjects);
+            return {
+                ...q,
+                shuffledOptions: shuffledOpts,
+                answered: false,
+                userCorrect: false
+            };
+        });
+
+        answeredCount = 0;
+        currentCorrectCount = 0;
+
+        renderQuestions();
+        updateFooterScore();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        container.innerHTML = "";
+        const labels = ['A', 'B', 'C', 'D'];
+
+        currentQuestions.forEach((q, qIdx) => {
+            const qBox = document.createElement('div');
+            qBox.className = 'question-box';
+            qBox.id = `q-box-${qIdx}`;
+
+            const trapBadge = q.isTrap ? `<span class="q-trap-badge">⚡ Câu hỏi rèn độ cẩn thận</span>` : ``;
+            const svgHtml = q.svg ? `<div class="svg-wrapper">${q.svg}</div>` : ``;
+
+            let optionsHtml = `<div class="options-list">`;
+            q.shuffledOptions.forEach((opt, optIdx) => {
+                optionsHtml += `
+                    <button type="button" class="option-btn" id="opt-${qIdx}-${optIdx}" onclick="selectAnswer(${qIdx}, ${optIdx})">
+                        <span class="opt-prefix">${labels[optIdx]}</span>
+                        <span class="opt-content">${opt.text}</span>
+                    </button>
+                `;
+            });
+            optionsHtml += `</div>`;
+
+            qBox.innerHTML = `
+                <div class="question-header">
+                    <span class="q-number">Câu ${qIdx + 1} / ${currentQuestions.length}</span>
+                    ${trapBadge}
+                </div>
+                <div class="q-text">${q.text}</div>
+                ${svgHtml}
+                ${optionsHtml}
+                <div id="exp-${qIdx}" class="explanation-box hidden"></div>
+            `;
+
+            container.appendChild(qBox);
+        });
+
+        // Render công thức MathJax
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise([container]).catch(err => console.log(err));
+        }
+    }
+
+    // Phản hồi tức thì ngay khi học sinh bấm chọn đáp án
+    function selectAnswer(qIdx, optIdx) {
+        const q = currentQuestions[qIdx];
+        if (q.answered) return; // Đã trả lời rồi thì khóa không bấm lại
+
+        q.answered = true;
+        answeredCount++;
+
+        const chosenOpt = q.shuffledOptions[optIdx];
+        const isCorrect = chosenOpt.isCorrect;
+        q.userCorrect = isCorrect;
+
+        if (isCorrect) {
+            currentCorrectCount++;
+            playSoundCorrect();
+        } else {
+            playSoundWrong();
+        }
+
+        // Hiển thị màu sắc các nút đáp án
+        q.shuffledOptions.forEach((opt, idx) => {
+            const btn = document.getElementById(`opt-${qIdx}-${idx}`);
+            btn.disabled = true;
+            if (opt.isCorrect) {
+                btn.classList.add('correct');
+            } else if (idx === optIdx && !isCorrect) {
+                btn.classList.add('wrong');
+            }
+        });
+
+        // Hiển thị lời giải thích ngay lập tức
+        const expBox = document.getElementById(`exp-${qIdx}`);
+        expBox.classList.remove('hidden');
+        expBox.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
+        expBox.innerHTML = `
+            <div style="font-weight: 700; margin-bottom: 0.35rem; color: ${isCorrect ? '#15803d' : '#b91c1c'};">
+                ${isCorrect ? '✅ Chính xác! Tuyệt vời!' : '❌ Chưa chính xác! Hãy xem kỹ giải thích nhé:'}
+            </div>
+            <div>${q.explanation}</div>
+        `;
+
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise([expBox]).catch(err => console.log(err));
+        }
+
+        updateFooterScore();
+
+        // Kiểm tra nếu đã trả lời hết tất cả câu hỏi của lượt này
+        if (answeredCount === currentQuestions.length) {
+            handleAttemptFinished();
+        }
+    }
+
+    function updateFooterScore() {
+        const total = currentQuestions.length;
+        document.getElementById('current-run-score').textContent =
+            `Đã trả lời: ${answeredCount} / ${total} | Đúng: ${currentCorrectCount} / ${total}`;
+    }
+
+    function handleAttemptFinished() {
+        const total = currentQuestions.length;
+
+        if (currentLevel === 1) {
+            stats.lv1Attempts++;
+            if (currentCorrectCount > stats.lv1Best) stats.lv1Best = currentCorrectCount;
+
+            if (currentCorrectCount === total) {
+                stats.lv1PerfectStreak++;
+                playSoundLevelUp();
+                if (stats.lv1PerfectStreak >= 3 && !stats.lv2Unlocked) {
+                    stats.lv2Unlocked = true;
+                    setTimeout(() => {
+                        alert("🎉 CHÚC MỪNG EM! Em đã tích lũy đủ 3 lượt đạt điểm tuyệt đối 12/12 ở Cấp độ 1 và chính thức MỞ KHÓA CẤP ĐỘ 2!");
+                        updateTabsUI();
+                        updateStatusBanner();
+                    }, 300);
+                } else {
+                    setTimeout(() => {
+                        alert(`🌟 Xuất sắc! Em đạt 12/12 câu! Tiến độ tích lũy mở khóa Cấp độ 2: ${stats.lv1PerfectStreak}/3 lượt. Hãy bấm "Làm lượt mới" để tiếp tục nhé!`);
+                        updateStatusBanner();
+                    }, 300);
+                }
+            } else {
+                setTimeout(() => {
+                    alert(`💪 Em đạt ${currentCorrectCount}/${total} câu ở lượt này. Hãy xem kỹ lời giải các câu sai và bấm "Làm lượt mới (Trộn đề)" để săn lượt 12/12 nhé!`);
+                }, 300);
+            }
+        } else if (currentLevel === 2) {
+            stats.lv2Attempts++;
+            if (currentCorrectCount > stats.lv2Best) stats.lv2Best = currentCorrectCount;
+
+            if (currentCorrectCount === total) {
+                stats.lv2PassedCount++;
+                stats.lv3Unlocked = true;
+                playSoundLevelUp();
+                setTimeout(() => {
+                    alert("🚀 TUYỆT ĐỈNH! Em đã vượt qua Cấp độ 2 (5/5 câu) và chính thức MỞ KHÓA CẤP ĐỘ 3 (Vận dụng cao 9-10 điểm)!");
+                    updateTabsUI();
+                    updateStatusBanner();
+                }, 300);
+            } else {
+                setTimeout(() => {
+                    alert(`💡 Em đạt ${currentCorrectCount}/${total} câu Cấp độ 2. Cần đạt 5/5 câu để mở khóa Cấp độ 3. Hãy thử lại lượt mới nhé!`);
+                    updateStatusBanner();
+                }, 300);
+            }
+        } else if (currentLevel === 3) {
+            stats.lv3Attempts++;
+            if (currentCorrectCount > stats.lv3Best) stats.lv3Best = currentCorrectCount;
+
+            if (currentCorrectCount === total) {
+                stats.lv3PassedCount++;
+                playSoundLevelUp();
+                setTimeout(() => {
+                    alert("👑 CHÚC MỪNG NHÀ VÔ ĐỊCH VẬT LÍ! Em đã chinh phục tuyệt đối Cấp độ 3 (5/5 câu). Hãy bấm xem báo cáo để gửi kết quả cho thầy/cô nhé!");
+                    updateStatusBanner();
+                    showReportSection();
+                }, 300);
+            } else {
+                setTimeout(() => {
+                    alert(`🔥 Em đạt ${currentCorrectCount}/${total} câu ở Cấp độ 3. Hãy đọc kỹ hướng dẫn giải và làm thêm lượt mới để đạt 5/5 nhé!`);
+                    updateStatusBanner();
+                }, 300);
+            }
+        }
+
+        updateTabsUI();
+        updateStatusBanner();
+    }
+
+    /********************************************************************
+     * 5. BÁO CÁO KẾT QUẢ & SAO CHÉP CLIPBOARD NỘP GIÁO VIÊN
+     ********************************************************************/
+    function formatDuration(sec) {
+        const m = Math.floor(sec / 60);
+        const s = sec % 60;
+        return `${m} phút ${s} giây`;
+    }
+
+    function generateReportText() {
+        const nowStr = new Date().toLocaleString('vi-VN');
+        return `=========================================
+📊 BÁO CÁO KẾT QUẢ LUYỆN TẬP VẬT LÍ 10
+Chủ đề 5: TỐC ĐỘ VÀ VẬN TỐC
+=========================================
+👤 Học sinh: ${studentInfo.name}
+🏫 Lớp: ${studentInfo.className}
+🎯 Mục tiêu: ${studentInfo.target}
+🌟 Ước mơ: ${studentInfo.dream}
+⏱️ Thời gian làm bài: ${formatDuration(stats.elapsedSeconds)}
+📅 Thời điểm xuất báo cáo: ${nowStr}
+-----------------------------------------
+📈 KẾT QUẢ CHI TIẾT TỪNG CẤP ĐỘ:
+1. Cấp độ 1 (Nhận biết - Thông hiểu):
+   - Số lượt đã làm: ${stats.lv1Attempts} lượt
+   - Điểm cao nhất: ${stats.lv1Best} / 12 câu
+   - Số lượt đạt tuyệt đối (12/12): ${stats.lv1PerfectStreak} lượt
+
+2. Cấp độ 2 (Vận dụng 7-8 điểm):
+   - Trạng thái: ${stats.lv2Unlocked ? "Đã mở khóa" : "Chưa mở khóa"}
+   - Số lượt đã làm: ${stats.lv2Attempts} lượt
+   - Điểm cao nhất: ${stats.lv2Best} / 5 câu
+
+3. Cấp độ 3 (Vận dụng cao 9-10 điểm):
+   - Trạng thái: ${stats.lv3Unlocked ? "Đã mở khóa" : "Chưa mở khóa"}
+   - Số lượt đã làm: ${stats.lv3Attempts} lượt
+   - Điểm cao nhất: ${stats.lv3Best} / 5 câu
+=========================================`;
+    }
+
+    function showReportSection() {
+        const reportCard = document.getElementById('report-card');
+        const reportContent = document.getElementById('report-content');
+        reportContent.textContent = generateReportText();
+        reportCard.classList.remove('hidden');
+        reportCard.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyReportToClipboard() {
+        const text = generateReportText();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("✅ Đã sao chép toàn bộ kết quả vào bộ nhớ tạm (Clipboard)! Em hãy dán (Paste) gửi cho giáo viên qua Zalo hoặc LMS nhé.");
+            }).catch(() => {
+                fallbackCopy(text);
+            });
+        } else {
+            fallbackCopy(text);
+        }
+    }
+
+    function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        alert("✅ Đã sao chép toàn bộ kết quả vào bộ nhớ tạm (Clipboard)! Em hãy dán (Paste) gửi cho giáo viên qua Zalo hoặc LMS nhé.");
+    }
+</script>
+
+</body>
+</html>
